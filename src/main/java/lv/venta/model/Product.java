@@ -1,5 +1,7 @@
 package lv.venta.model;
 
+
+
 public class Product {
 	private String title;
 	private String description;
@@ -7,6 +9,9 @@ public class Product {
 	private int quantity;
 	private long id;
 	private static long idCounter = 1;
+	
+	
+	
 	public String getTitle() {
 		return title;
 	}
