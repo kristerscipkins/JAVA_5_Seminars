@@ -76,19 +76,76 @@ public class FirstController {
     model.addAttribute("packet-error", "Product does not exist");
     return "err-page";
   }
-  
+
   @GetMapping("/add-product") //localhost:8080/add-product
   public String getAddProduct(Model model) {
-	  model.addAttribute("product", new Product());
-	  return"add-product-page";
-  }
-  
-  @PostMapping("/add-product")
-  public String postAddProduct(Product product) {
-	  //TODO check if this product already exists
-	  Product newProduct = new Product(product.getTitle(), product.getDescription(),product.getPrice(), product.getQuantity());
-	  allProductList.add(newProduct);
-	  return"redirect:/all-products";
+    model.addAttribute("product", new Product());
+    return "add-product-page";
   }
 
+  @PostMapping("/add-product")
+  public String postAddProduct(Product product) {
+    //TODO check if this product already exists
+    Product newProduct = new Product(product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
+    allProductList.add(newProduct);
+    return "redirect:/all-products";
+  }
+
+  @GetMapping("/update-product/{id}") //localhost:8080/update-product/2
+  public String getUpdateProductFunc(@PathVariable("id") long id, Model model) {
+    if (id > 0) {
+      for (Product temp: allProductList) {
+        if (temp.getId() == id) {
+          model.addAttribute("product", temp);
+          return "update-product"; //will call update-product-page.html
+        }
+      }
+    }
+
+    model.addAttribute("packetError", "Wrong ID");
+    return "err-page"; //will call error-page.html
+
+  }
+
+  @PostMapping("/update-product/{id}")
+  public String postUpdateProductFunc(@PathVariable("id") long id, Product product) //edited product
+  {
+    for (Product temp: allProductList) {
+      if (temp.getId() == id) {
+        temp.setTitle(product.getTitle());
+        temp.setDescription(product.getDescription());
+        temp.setPrice(product.getPrice());
+        temp.setQuantity(product.getQuantity());
+
+        return "redirect:/all-products/" + id; //will call localhost:8080/all-products/2 endpoint
+      }
+
+    }
+
+    return "redirect:/error"; //will call localhost:8080/error
+
+  }
+
+  @GetMapping("/error") //localhost:8080/error
+  public String getErrorFunc(Model model) {
+    model.addAttribute("packetError", "Wrong id");
+    return "err-page"; //will call error-page.html
+  }
+  
+  @GetMapping("/delete-product/{id}") //localhost:8080/update-product/2
+  public String getDeleteProduct(@PathVariable("id") long id, Model model) {
+    if (id > 0) {
+      for (Product temp: allProductList) {
+        if (temp.getId() == id) {
+          allProductList.remove(temp);
+          model.addAttribute("packet", allProductList);
+          return "all-product-page"; //will call update-product-page.html
+        }
+      }
+    }
+
+    model.addAttribute("packetError", "Wrong ID");
+    return "err-page"; //will call error-page.html
+
+  }
 }
