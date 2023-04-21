@@ -1,6 +1,7 @@
 package lv.venta.centrollers;
 
 import java.lang.reflect.Array;
+import java.security.AllPermission;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.model.Product;
@@ -79,6 +81,14 @@ public class FirstController {
   public String getAddProduct(Model model) {
 	  model.addAttribute("product", new Product());
 	  return"add-product-page";
+  }
+  
+  @PostMapping("/add-product")
+  public String postAddProduct(Product product) {
+	  //TODO check if this product already exists
+	  Product newProduct = new Product(product.getTitle(), product.getDescription(),product.getPrice(), product.getQuantity());
+	  allProductList.add(newProduct);
+	  return"redirect:/all-products";
   }
 
 }

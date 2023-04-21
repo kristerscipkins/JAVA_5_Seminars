@@ -2,6 +2,30 @@
 	<body>
 		<form action = "#" th:action="@{/add-product}" th:object="${product}" method="post">
 			
+			<tabbe>
+				<tr> 
+					<td>Product title:</td>
+					<td> <input type="text" th:field="*{title}"/> </td>
+				</tr>
+				<tr> 
+					<td>Product description:</td>
+					<td> <input type="text" th:field="*{description}"/> </td>
+				</tr>
+				<tr> 
+					<td>Product price:</td>
+					<td> <input type="text" th:field="*{price}"/> </td>
+				</tr>
+				<tr> 
+					<td>Product quantity:</td>
+					<td> <input type="text" th:field="*{quantity}"/> </td>
+				</tr>
+				
+				<tr> 
+					<td><button type="submit"/>Add product!</td>
+				</tr>
+				
+				</tabbe>
+			
 		</formaction>		
 	</body>
 </html>
