@@ -21,11 +21,16 @@ public class CRUDProductServiceImpl implements ICRUDProductService{
 	public void addNewProduct(String title, String description, float price, int quantity) throws Exception {
 		// TODO check title and description w regex
 		if (title!=null && description!=null && price>0 && price<10000 && quantity > 0 && quantity < 100000) {
+			boolean isFound = false;
 			for (Product product : allProductList) {
 				if (product.getTitle().equals(title) && product.getDescription().equals(description) && product.getPrice() == price) {
 					product.setQuantity(product.getQuantity() + quantity);
 					break;
 				}
+			}
+			if (isFound) {
+				Product newProduct = new Product(title, description, price, quantity);
+				allProductList.add(newProduct);
 			}
 		} else {
 			throw new Exception("Incorrect params");
@@ -34,14 +39,21 @@ public class CRUDProductServiceImpl implements ICRUDProductService{
 
 	@Override
 	public ArrayList<Product> retriveAllProducts() {
-		// TODO Auto-generated method stub
-		return null;
+		return allProductList;
 	}
 
 	@Override
 	public Product retriveProductById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if (id > 0) {
+			for (Product product : allProductList) {
+				if (product.getId() == id) {
+					return product;
+				}
+			}
+			throw new Exception("There is no product with this Id");
+		} else {
+			throw new Exception("Incorrect Id needs to be pozitive");
+		}
 	}
 
 	@Override
