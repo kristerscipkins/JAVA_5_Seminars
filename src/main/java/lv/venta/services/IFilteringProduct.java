@@ -15,6 +15,4 @@ public interface IFilteringProduct {
 	//filter product: sorting
 	public abstract ArrayList<Product> sort();
 	
-	
-	
 }
