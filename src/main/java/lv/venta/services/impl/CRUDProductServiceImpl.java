@@ -19,8 +19,8 @@ public class CRUDProductServiceImpl implements ICRUDProductService {
   //---------------------------------------------------------------------------------------------------------------------------------------------------------------  
   @Override
   public void addNewProduct(String title, String description, float price, int quantity) throws Exception {
-    if (productRepo.exexistsByTitleAndDescriptionAndPrice(title, description, price)) {
-      Product product = productRepo.finfindByTitleAndDescriptionAndPrice(title, description, price);
+    if (productRepo.existsByTitleAndDescriptionAndPrice(title, description, price)) {
+      Product product = productRepo.findByTitleAndDescriptionAndPrice(title, description, price);
       product.setQuantity(product.getQuantity() + quantity);
       productRepo.save(product);
     } else {

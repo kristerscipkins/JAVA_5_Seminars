@@ -6,6 +6,6 @@ import lv.venta.model.Product;
 
 public interface IProductRepo extends CrudRepository<Product, Long>{
 		
-	boolean exexistsByTitleAndDescriptionAndPrice(String inputTitle, String inputDescription, float inputPrice);
-	Product finfindByTitleAndDescriptionAndPrice(String inputTitle, String inputDescription, float inputPrice);
+	boolean existsByTitleAndDescriptionAndPrice(String inputTitle, String inputDescription, float inputPrice);
+	Product findByTitleAndDescriptionAndPrice(String inputTitle, String inputDescription, float inputPrice);
 }

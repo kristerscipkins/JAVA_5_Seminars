@@ -25,7 +25,7 @@ public class Product {
 	
 	@Column(name = "Description")
 	@NotNull
-	@Size(min = 5, max = 4000)
+	@Size(min = 3, max = 4000)
 	@Pattern(regexp = "[A-Z]{1}[a-z0-9\\ ]+")
 	private String description;
 	
