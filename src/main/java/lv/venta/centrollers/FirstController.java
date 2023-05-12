@@ -79,13 +79,20 @@ public class FirstController {
   }
 
   @PostMapping("/add-product")
-  public String postAddProduct(Product product) {
-    try {
-      CRUDservice.addNewProduct(product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
-      return "redirect:/all-products";
-    } catch (Exception e) {
-      return "redirect:/error"; //will call localhost:8080/error
-    }
+  public String postAddProduct(@Valid Product product, BindingResult result) {
+	  if (!result.hasErrors()) {
+		
+	
+		  try {
+			  CRUDservice.addNewProduct(product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
+			  return "redirect:/all-products";
+		  } catch (Exception e) {
+			  return "redirect:/error"; //will call localhost:8080/error
+		  }
+	  }
+	  else {
+		return "add-product-page";
+	}
 
   }
 
