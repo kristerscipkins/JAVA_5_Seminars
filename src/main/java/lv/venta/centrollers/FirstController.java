@@ -83,8 +83,6 @@ public class FirstController {
   @PostMapping("/add-product")
   public String postAddProduct(@Valid Product product, BindingResult result) {
 	  if (!result.hasErrors()) {
-		
-	
 		  try {
 			  CRUDservice.addNewProduct(product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
 			  return "redirect:/all-products";
