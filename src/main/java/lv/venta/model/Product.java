@@ -1,33 +1,48 @@
 package lv.venta.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+
+@Table(name = "product_table")
+@Entity
 public class Product {
 	
+	@Column(name = "Title")
 	@NotNull
 	@Size(min = 3, max = 150)
 	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+")
 	private String title;
 	
+	@Column(name = "Description")
 	@NotNull
 	@Size(min = 5, max = 4000)
 	@Pattern(regexp = "[A-Z]{1}[a-z0-9\\ ]+")
 	private String description;
 	
+	@Column(name = "Price")
 	@Min(0)
 	@Max(10000)
 	private float price;
 	
+	@Column(name = "Quantity")
 	@Min(0)
 	@Max(1000000)
 	private int quantity;
 	
+	@Column(name = "Id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private static long idCounter = 1;
 	
 	
 	
@@ -58,11 +73,8 @@ public class Product {
 	public long getId() {
 		return id;
 	}
-	public void setId() {
-		this.id = idCounter++;
-	}
+
 	public Product(String title, String description, float price, int quantity) {
-		setId();
 		this.title = title;
 		this.description = description;
 		this.price = price;
